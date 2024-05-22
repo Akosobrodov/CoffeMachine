@@ -31,9 +31,9 @@ public class CoffeeMachine {
 
     private int madeCups;
 
-    private int logCountLatte = 0;
+    private int logCountLatte;
 
-    private int logCountEspresso = 0;
+    private int logCountEspresso;
 
     private List<String> logList;
 
@@ -45,6 +45,8 @@ public class CoffeeMachine {
         this.milkAmount = milkAmount;
         this.madeCups = madeCups;
         this.logList = new ArrayList<>();
+        this.logCountLatte = 0;
+        this.logCountEspresso = 0;
         this.stateMachine = false;
     }
 
@@ -331,7 +333,6 @@ public class CoffeeMachine {
             if (Objects.equals(person.getName(), name)) {
                 System.out.println(person.getCoffee().getType());
                 makePersonCoffee(person.getCoffee(), person.getAmount());
-                return;
             }
         }
         System.out.println("Профиль не найден");
