@@ -8,9 +8,12 @@ public class Person {
 
     private Coffee coffee;
 
-    public Person(String name, Coffee coffee) {
+    private int amount;
+
+    public Person(String name, Coffee coffee, int amount) {
         this.coffee = coffee;
         this.name = name;
+        this.amount = amount;
     }
 
     public Coffee getCoffee() {
@@ -19,5 +22,9 @@ public class Person {
 
     public String getName() {
         return name;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }
