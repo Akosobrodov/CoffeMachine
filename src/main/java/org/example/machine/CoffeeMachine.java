@@ -108,9 +108,9 @@ public class CoffeeMachine {
 
     public void makePersonCoffee(Coffee coffee, int amount) {
         CoffeeType coffeeType = coffee.getType();
-        if (this.coffeeAmount >= coffeeType.getCoffeeAmount() &&
-                this.milkAmount >= coffeeType.getMilkAmount() &&
-                this.waterAmount >= coffeeType.getWaterAmount()) {
+        if (this.coffeeAmount >= amount * coffeeType.getCoffeeAmount() &&
+                this.milkAmount >= amount * coffeeType.getMilkAmount() &&
+                this.waterAmount >= amount * coffeeType.getWaterAmount()) {
             if (this.madeCups < maxMadeCups) {
                 setWaterAmount(this.waterAmount - amount * coffeeType.getWaterAmount());
                 setCoffeeAmount(this.coffeeAmount - amount * coffeeType.getCoffeeAmount());
@@ -333,9 +333,10 @@ public class CoffeeMachine {
             if (Objects.equals(person.getName(), name)) {
                 System.out.println(person.getCoffee().getType());
                 makePersonCoffee(person.getCoffee(), person.getAmount());
+            } else {
+                System.out.println("Профиль не найден");
             }
         }
-        System.out.println("Профиль не найден");
     }
 
     public static void main(String[] args) {
