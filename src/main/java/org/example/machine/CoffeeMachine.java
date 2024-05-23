@@ -130,11 +130,9 @@ public class CoffeeMachine {
         switch (console.nextLine()) {
             case "1" -> {
                 makePersonCoffee(CoffeeType.LATTE, amount);
-                logCountLatte += amount;
             }
             case "2" -> {
                 makePersonCoffee(CoffeeType.ESPRESSO, amount);
-                logCountEspresso += amount;
             }
             default -> System.out.println("Такого кофе нет");
         }
@@ -221,7 +219,7 @@ public class CoffeeMachine {
                 personList.add(new Person(personName, CoffeeType.LATTE, amountLatte,
                         CoffeeType.ESPRESSO, amountEspresso));
                 System.out.println("Профиль добавлен");
-                log("Добавлен профиль" + personName);
+                log("Добавлен профиль " + personName);
             } else {
                 System.out.println("Не верное значение порций");
             }
@@ -311,6 +309,7 @@ public class CoffeeMachine {
                 case "5" -> {
                     System.out.println("Введите кол-во порций");
                     int amount = console.nextInt();
+                    console.nextLine();
                     if (amount > 0) {
                         coffeeMachine.makeCoffee(amount);
                     }
