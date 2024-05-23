@@ -1,30 +1,46 @@
 package org.example.Person;
 
-import org.example.coffe.Coffee;
+import org.example.coffe.CoffeeType;
 
 public class Person {
 
     private String name;
 
-    private Coffee coffee;
+    private CoffeeType coffeeLatte;
 
-    private int amount;
+    private CoffeeType coffeeEspresso;
 
-    public Person(String name, Coffee coffee, int amount) {
-        this.coffee = coffee;
+    private int amountLatte;
+
+    private int amountEspresso;
+
+    public Person(String name, CoffeeType coffeeLatte, int amountLatte,
+                  CoffeeType coffeeEspresso, int amountEspresso) {
+        this.coffeeLatte = coffeeLatte;
+        this.amountLatte = amountLatte;
         this.name = name;
-        this.amount = amount;
+        this.coffeeEspresso = coffeeEspresso;
+        this.amountEspresso = amountEspresso;
+
     }
 
-    public Coffee getCoffee() {
-        return coffee;
+    public CoffeeType getCoffeeLatte() {
+        return coffeeLatte;
+    }
+
+    public CoffeeType getCoffeeEspresso() {
+        return coffeeEspresso;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getAmountLatte() {
+        return amountLatte;
+    }
+
+    public int getAmountEspresso() {
+        return amountEspresso;
     }
 }

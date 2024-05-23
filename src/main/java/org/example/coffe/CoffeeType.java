@@ -34,4 +34,5 @@ public enum CoffeeType {
     public String getName() {
         return name;
     }
+
 }
