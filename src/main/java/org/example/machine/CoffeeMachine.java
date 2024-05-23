@@ -49,16 +49,6 @@ public class CoffeeMachine {
         this.stateMachine = false;
     }
 
-    public void cleanMachine() {
-        if (this.madeCups > 0) {
-            this.madeCups = 0;
-            System.out.println("Машина очищена");
-            log("Очищена машина");
-        } else {
-            System.out.println("Машина уже чистая");
-        }
-    }
-
     public int getMadeCups() {
         return madeCups;
     }
@@ -129,7 +119,7 @@ public class CoffeeMachine {
         }
     }
 
-    public void makeCoffee() {
+    public void makeCoffee(int amount) {
         if (!getStateMachine()) {
             System.out.println("Машина выключена");
             return;
@@ -139,64 +129,34 @@ public class CoffeeMachine {
                 "\n2.Еспрессо");
         switch (console.nextLine()) {
             case "1" -> {
-                makePersonCoffee(CoffeeType.LATTE, 1);
-                logCountLatte += 1;
+                makePersonCoffee(CoffeeType.LATTE, amount);
+                logCountLatte += amount;
             }
             case "2" -> {
-                makePersonCoffee(CoffeeType.ESPRESSO, 1);
-                logCountEspresso += 1;
+                makePersonCoffee(CoffeeType.ESPRESSO, amount);
+                logCountEspresso += amount;
             }
             default -> System.out.println("Такого кофе нет");
         }
     }
 
-    public void makeSomeCoffee() {
+    public void makeCoffeeFromProfile() {
         if (!getStateMachine()) {
             System.out.println("Машина выключена");
             return;
         }
-        System.out.println("Выберите кофе:" +
-                "\n1.Латте" +
-                "\n2.Еспрессо");
-        switch (console.nextLine()) {
-            case "1" -> {
-                System.out.println("Введите кол-во порций");
-                int amount = console.nextInt();
-                if (amount > 0) {
-                    makePersonCoffee(CoffeeType.LATTE, amount);
-                    logCountLatte += amount;
-                }
-            }
-            case "2" -> {
-                System.out.println("Введите кол-во порций");
-                int amount = console.nextInt();
-                if (amount > 0) {
-                    makePersonCoffee(CoffeeType.ESPRESSO, amount);
-                    logCountEspresso += amount;
-                }
-            }
-            default -> System.out.println("Такого кофе нет");
+        for (int i = 0; i < personList.size(); i++) {
+            System.out.println(personList.get(i).getName());
         }
-    }
-
-    public void makeThreeCoffee() {
-        if (!getStateMachine()) {
-            System.out.println("Машина выключена");
-            return;
-        }
-        System.out.println("Выберите кофе:" +
-                "\n1.Латте" +
-                "\n2.Еспрессо");
-        switch (console.nextLine()) {
-            case "1" -> {
-                makePersonCoffee(CoffeeType.LATTE, 3);
-                logCountLatte += 3;
+        System.out.println("Введите имя профиля");
+        String name = console.nextLine();
+        for (Person person : personList) {
+            if (Objects.equals(person.getName(), name)) {
+                makePersonCoffee(person.getCoffeeLatte(), person.getAmountLatte());
+                makePersonCoffee(person.getCoffeeEspresso(), person.getAmountEspresso());
+            } else {
+                System.out.println("Профиль не найден");
             }
-            case "2" -> {
-                makePersonCoffee(CoffeeType.ESPRESSO, 3);
-                logCountEspresso += 3;
-            }
-            default -> System.out.println("Такого кофе нет");
         }
     }
 
@@ -310,23 +270,13 @@ public class CoffeeMachine {
         log("Выведены ресурсы кофемашины");
     }
 
-    public void makeCoffeeFromProfile() {
-        if (!getStateMachine()) {
-            System.out.println("Машина выключена");
-            return;
-        }
-        for (int i = 0; i < personList.size(); i++) {
-            System.out.println(personList.get(i).getName());
-        }
-        System.out.println("Введите имя профиля");
-        String name = console.nextLine();
-        for (Person person : personList) {
-            if (Objects.equals(person.getName(), name)) {
-                makePersonCoffee(person.getCoffeeLatte(), person.getAmountLatte());
-                makePersonCoffee(person.getCoffeeEspresso(), person.getAmountEspresso());
-            } else {
-                System.out.println("Профиль не найден");
-            }
+    public void cleanMachine() {
+        if (this.madeCups > 0) {
+            this.madeCups = 0;
+            System.out.println("Машина очищена");
+            log("Очищена машина");
+        } else {
+            System.out.println("Машина уже чистая");
         }
     }
 
@@ -356,9 +306,15 @@ public class CoffeeMachine {
             switch (console.nextLine()) {
                 case "1" -> coffeeMachine.turnOn();
                 case "2" -> coffeeMachine.turnOff();
-                case "3" -> coffeeMachine.makeCoffee();
-                case "4" -> coffeeMachine.makeThreeCoffee();
-                case "5" -> coffeeMachine.makeSomeCoffee();
+                case "3" -> coffeeMachine.makeCoffee(1);
+                case "4" -> coffeeMachine.makeCoffee(3);
+                case "5" -> {
+                    System.out.println("Введите кол-во порций");
+                    int amount = console.nextInt();
+                    if (amount > 0) {
+                        coffeeMachine.makeCoffee(amount);
+                    }
+                }
                 case "6" -> coffeeMachine.addPerson();
                 case "7" -> coffeeMachine.showMachineIngredient();
                 case "8" -> coffeeMachine.cleanMachine();
