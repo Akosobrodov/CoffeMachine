@@ -105,7 +105,7 @@ public class CoffeeMachine {
                 setMilkAmount(this.milkAmount - amount * coffee.getMilkAmount());
                 System.out.println("Кофе готов");
                 this.madeCups += amount;
-                if (Objects.equals(coffee.getName(), "Латте")) {
+                if ((coffee.getName().equals("Латте"))) {
                     logCountLatte += amount;
                 } else {
                     logCountEspresso += amount;
@@ -149,7 +149,7 @@ public class CoffeeMachine {
         System.out.println("Введите имя профиля");
         String name = console.nextLine();
         for (Person person : personList) {
-            if (Objects.equals(person.getName(), name)) {
+            if (person.getName().equals(name)) {
                 makePersonCoffee(person.getCoffeeLatte(), person.getAmountLatte());
                 makePersonCoffee(person.getCoffeeEspresso(), person.getAmountEspresso());
             } else {
@@ -206,11 +206,20 @@ public class CoffeeMachine {
         }
     }
 
+    public boolean containsPerson(List<Person> personList, String name) {
+        for (Person person : personList) {
+            if (person.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addPerson() {
         System.out.println("Введите имя профиля");
         String personName = console.nextLine();
-        boolean canAdd = personList.stream().noneMatch(person -> person.getName().equals(personName));
-        if (canAdd) {
+        boolean canAdd = containsPerson(personList,personName);
+        if (!canAdd) {
             System.out.println("Выберите кол-во латте в профиле");
             int amountLatte = Integer.parseInt(console.nextLine());
             System.out.println("Введите кол-во Еспрессо");
